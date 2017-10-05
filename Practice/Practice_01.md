@@ -27,7 +27,7 @@ F:\
 * [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Eclipse IDE](https://eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygenr)
 
-### Альтренативная среда разработки (по желанию)
+### Альтернативная среда разработки (по желанию)
 
 * [IntelliJ IDEA](https://www.jetbrains.com/idea)
 

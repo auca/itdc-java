@@ -125,5 +125,5 @@ F:\
 
 ### MCCME
 
-Задания с A по S http://informatics.mccme.ru/mod/statements/view.php?id=2296#1
+Задания с A по U http://informatics.mccme.ru/mod/statements/view.php?id=2296
 

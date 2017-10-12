@@ -12,3 +12,8 @@
 
 * <https://piazza.com/class/j7vtslkhflm251>
 
+## Скринкаст
+
+Просмотр экрана машины преподавателя
+
+* <https://hangouts.google.com/hangouts/_/auca.kg/itdc-java>

@@ -16,4 +16,4 @@
 
 Просмотр экрана машины преподавателя
 
-* <https://hangouts.google.com/hangouts/_/auca.kg/itdc-java>
+* <http://youtu.be/rJiBnEXWN60>

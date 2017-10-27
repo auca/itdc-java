@@ -16,4 +16,9 @@
 
 Просмотр экрана машины преподавателя
 
-* <http://youtu.be/rJiBnEXWN60>
+* <https://hangouts.google.com/hangouts/_/ytl/eC35JzA6JjY47uWl0BtA6XICJvbwADtb2ZZXufDH-fc=>
+
+## Записи
+
+* Одномерные массивы: <http://youtu.be/rJiBnEXWN60>
+* Теория циклов и методов: <https://youtu.be/tbMn35tpfjI>

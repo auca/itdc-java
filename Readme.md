@@ -20,5 +20,6 @@
 
 ## Записи
 
-* Одномерные массивы: <http://youtu.be/rJiBnEXWN60>
-* Теория циклов и методов: <https://youtu.be/tbMn35tpfjI>
+Записи занятий
+
+* <https://www.youtube.com/playlist?list=PLIWindejDy9Am8eQpWOpqTD8Za9Du_jyG>

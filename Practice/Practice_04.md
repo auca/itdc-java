@@ -133,3 +133,4 @@ F:\
 * Задания с A по Z: http://informatics.mccme.ru/mod/statements/view.php?id=276
 * Задания с A по O: http://informatics.mccme.ru/mod/statements/view.php?id=280
 * Задания с A по E: http://informatics.mccme.ru/mod/statements/view.php?id=2587
+

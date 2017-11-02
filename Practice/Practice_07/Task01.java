@@ -1,10 +1,11 @@
+import java.util.Scanner;
+
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Task01 {
 
-	/* Commands */
+    /* Commands */
 
     private static final int COMMAND_PUT_PEN_DOWN = 1;
     private static final int COMMAND_PUT_PEN_UP   = 2;
@@ -13,7 +14,7 @@ public class Task01 {
     private static final int COMMAND_MOVE         = 5;
     private static final int COMMAND_PRINT_FIELD  = 6;
     private static final int COMMAND_EXIT         = 9;
-    
+
     /* Field */
 
     private static final char EMPTY_CELL_SYMBOL  = '.';
@@ -43,20 +44,20 @@ public class Task01 {
     }
 
     private static String printField() {
-    	StringBuilder result = new StringBuilder();
-    	
+        StringBuilder result = new StringBuilder();
+
         for (int i = 0; i < FIELD_HEIGHT; ++i) {
             for (int j = 0; j < FIELD_WIDTH; ++j) {
                 if (y == i && x == j) {
-                	result.append(TURTLE_SYMBOL);
+                    result.append(TURTLE_SYMBOL);
                 } else {
-                	result.append(field[i][j]);
+                    result.append(field[i][j]);
                 }
             }
             result.append("\n");
         }
         result.append("\n");
-        
+
         return result.toString();
     }
 
@@ -94,7 +95,6 @@ public class Task01 {
     }
 
     private static void move(int steps) {
-
         for (int i = 0; i < steps; ++i) {
             if (isPenDown) {
                 field[y][x] = MARKED_CELL_SYMBOL;
@@ -104,98 +104,99 @@ public class Task01 {
             int nextY = y + dy;
 
             if (!isInside(nextX, nextY)) {
-            	break;
+                break;
             }
 
-        	x = nextX;
-        	y = nextY;
+            x = nextX;
+            y = nextY;
         }
     }
-    
+
     /* Command and Input */
-    
+
     private static void processCommand(int[] commandAndParams) {
-    	int command = commandAndParams[0];
-    	switch (command) {
-	    	case COMMAND_PUT_PEN_DOWN:
-	    		putPenDown();
-	    		break;
-	    	case COMMAND_PUT_PEN_UP:
-	    		putPenUp();
-	    		break;
-	    	case COMMAND_TURN_RIGHT:
-	    		turnRight();
-	    		break;
-	    	case COMMAND_TURN_LEFT:
-	    		turnLeft();
-	    		break;
-	    	case COMMAND_MOVE:
-	    		int steps = commandAndParams[1];
-	        	move(steps);
-	    		break;
-	    	case COMMAND_PRINT_FIELD:
-	    		System.out.print(printField());
-	    		break;
-	    	case COMMAND_EXIT:
-	    		System.exit(0);
-	    		break;
-	    	default:
-	    		throw new IllegalArgumentException("Неверный код команды");
-    	}
+        int command = commandAndParams[0];
+        switch (command) {
+            case COMMAND_PUT_PEN_DOWN:
+                putPenDown();
+                break;
+            case COMMAND_PUT_PEN_UP:
+                putPenUp();
+                break;
+            case COMMAND_TURN_RIGHT:
+                turnRight();
+                break;
+            case COMMAND_TURN_LEFT:
+                turnLeft();
+                break;
+            case COMMAND_MOVE:
+                int steps = commandAndParams[1];
+                move(steps);
+                break;
+            case COMMAND_PRINT_FIELD:
+                System.out.print(printField());
+                break;
+            case COMMAND_EXIT:
+                System.exit(0);
+                break;
+            default:
+                throw new IllegalArgumentException("Неверный код команды");
+        }
     }
-    
+
     private static void processInput(Scanner scanner) {
-    	while (scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-	    	Scanner lineScanner = new Scanner(line);
-	    	int command; int steps = 0;
-	    	try {
-	    		command = lineScanner.nextInt();
-	    	} catch(InputMismatchException e) {
-	    		throw new IllegalArgumentException("Команда должна быть числом");
-	    	} catch(NoSuchElementException e) {
-	    		throw new IllegalArgumentException("Команда не была введена");
-	    	}
-	    	
-	    	if (command == COMMAND_MOVE) {
-	    		try {
-	    			steps = lineScanner.nextInt();
-	        	} catch(InputMismatchException e) {
-	        		throw new IllegalArgumentException("Количество шагов должно быть числом");
-	        	} catch(NoSuchElementException e) {
-	        		throw new IllegalArgumentException("Количество шагов не введено");
-	        	}
-	    		
-	    		if (steps < 0) {
-	    			throw new IllegalArgumentException("Количество шагов не может быть отрицательным");
-	    		}
-	    	}
-	    	
-	    	if (command != COMMAND_MOVE) {
-	    		processCommand(new int[] { command });
-	    	} else {
-	    		processCommand(new int[] { command, steps });
-	    	}
-    	}
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Scanner lineScanner = new Scanner(line);
+            int command; int steps = 0;
+            try {
+                command = lineScanner.nextInt();
+            } catch(InputMismatchException e) {
+                throw new IllegalArgumentException("команда должна быть числом");
+            } catch(NoSuchElementException e) {
+                throw new IllegalArgumentException("команда не была введена");
+            }
+
+            if (command == COMMAND_MOVE) {
+                try {
+                    steps = lineScanner.nextInt();
+                } catch(InputMismatchException e) {
+                    throw new IllegalArgumentException("количество шагов должно быть числом");
+                } catch(NoSuchElementException e) {
+                    throw new IllegalArgumentException("количество шагов не введено");
+                }
+
+                if (steps < 0) {
+                    throw new IllegalArgumentException("количество шагов не может быть отрицательным");
+                }
+            }
+
+            if (command != COMMAND_MOVE) {
+                processCommand(new int[] { command });
+            } else {
+                processCommand(new int[] { command, steps });
+            }
+        }
     }
-    
+
     /* Entry Point */
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
+
         initField();
         initTurtle();
-        
+
         /*
          * Измените программу добавив вторую черепашку на поле
          */
-        
+
         try {
-        	processInput(scanner);
+            processInput(scanner);
         } catch (Exception e) {
-        	System.out.println("Произошла ошибка: \n" + e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
 }
+

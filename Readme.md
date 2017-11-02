@@ -16,10 +16,12 @@
 
 Просмотр экрана машины преподавателя
 
-* <https://hangouts.google.com/hangouts/_/ytl/TgDEDvXqZ10o7Cw3_m8yi2LYs57u1H_vlBSHg0ammEQ=>
+* <https://hangouts.google.com/hangouts/_/ytl/VRzS80guixuBUBap1sqNdpBGKJqmAJrmTDaLkgAYe2I=?hl=en_US>
 
 ## Записи
 
 Записи занятий
+
+* Последняя: https://youtu.be/LZOgbf5VVUk
 
 * <https://www.youtube.com/playlist?list=PLIWindejDy9Am8eQpWOpqTD8Za9Du_jyG>

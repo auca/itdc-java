@@ -3,10 +3,23 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GraphicsTemplate extends JFrame {
+public class AnimationTemplate extends JFrame {
 
-    String title = "Graphics Template";
+    String title = "Animation Template";
     Color background = Color.BLUE;
+    int delay = 10;
+
+    // Ваши переменные
+
+    void start() {
+        // код для инициализации
+
+    }
+
+    void update() {
+        // код для обновления свойств объектов
+
+    }
 
     void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -16,11 +29,19 @@ public class GraphicsTemplate extends JFrame {
         );
         g2.setRenderingHints(hints);
 
-        // Ваш код
+        // код для рисования следующего кадра
 
     }
 
-    public GraphicsTemplate() {
+    void input(int keyCode) {
+        // код для обработки ввода
+        if (keyCode == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        } // else if / switch...
+
+    }
+
+    public AnimationTemplate() {
         setTitle(title);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,14 +53,24 @@ public class GraphicsTemplate extends JFrame {
         panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.exit(0);
+                input(e.getKeyCode());
             }
         });
         add(panel);
+
+        start();
+
+        javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                update();
+                repaint();
+            }
+        });
+        timer.start();
     }
 
     public static void main(String[] args) {
-        new GraphicsTemplate();
+        new AnimationTemplate();
     }
 
     class DrawPanel extends JPanel {
@@ -57,4 +88,3 @@ public class GraphicsTemplate extends JFrame {
     }
 
 }
-

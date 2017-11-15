@@ -22,5 +22,4 @@
 
 Записи занятий
 
-* Последняя запись: <https://youtu.be/LZOgbf5VVUk>
 * Прошлые: <https://www.youtube.com/playlist?list=PLIWindejDy9Am8eQpWOpqTD8Za9Du_jyG>

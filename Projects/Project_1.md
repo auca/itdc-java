@@ -81,7 +81,7 @@ _С уважением,
 _Issues_), и визуально представлять рабочий процесс на _Kanban_-подобной доске
 (закладка _Projects_).
 
-[!Project](https://i.imgur.com/ysVAyop.png)
+![Project](https://i.imgur.com/ysVAyop.png)
 
 ### Оценивание работы
 

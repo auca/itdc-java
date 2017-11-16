@@ -11,7 +11,7 @@ public class Main {
 //		printNumbers(numbers);
 //
 //		reverseNumbers(numbers);
-//		
+//
 //		System.out.println("После перестановки: ");
 //		printNumbers(numbers);
 //		
@@ -27,8 +27,8 @@ public class Main {
 //		
 //		System.out.println(numbers.size());
 		
-		final int NUMBER_OF_ELEMENTS = 100000;
-		final int NANOSECONDS_IN_SECONDS = 1000000;
+		final int NUMBER_OF_ELEMENTS = 100000000;
+		final int NANOSECONDS_IN_MSECONDS = 1000000;
 		ArrayListInt numbers = new ArrayListInt();
 		
 		long startTime = System.nanoTime();
@@ -37,19 +37,19 @@ public class Main {
 		}
 		long endTime = System.nanoTime();
 		long deltaTime = endTime - startTime;
-		long deltaTimeInMs = deltaTime / NANOSECONDS_IN_SECONDS;
+		long deltaTimeInMs = deltaTime / NANOSECONDS_IN_MSECONDS;
 		
 		System.out.printf("Время для нашего динам. списка: %d%n", deltaTimeInMs);
 		
 		ArrayList<Integer> otherNumbers = new ArrayList<Integer>();
-		
+
 		startTime = System.nanoTime();
 		for (int i = 0; i < NUMBER_OF_ELEMENTS; ++i) {
 			otherNumbers.add(i);
 		}
 		endTime = System.nanoTime();
 		deltaTime = endTime - startTime;
-		deltaTimeInMs = deltaTime / NANOSECONDS_IN_SECONDS;
+		deltaTimeInMs = deltaTime / NANOSECONDS_IN_MSECONDS;
 		
 		System.out.printf("Время для Java динам. списка: %d%n", deltaTimeInMs);
 	}

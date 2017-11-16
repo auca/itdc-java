@@ -46,44 +46,45 @@ public class ArrayListInt {
 	}
 	
 	public void add(int i, int value) {
-		int[] temp = new int[data.length + 1];
+		if (size + 1 > data.length) {
+			int[] temp = new int[data.length * CAPACITY_MULTIPLIER];
 
-		for (int j = 0; j < i; ++j) {
-			temp[j] = data[j];
-		}
-		temp[i] = value;
-		for (int j = i; j < data.length; ++j) {
-			temp[j + 1] = data[j];
+			for (int j = 0; j < i; ++j) {
+				temp[j] = data[j];
+			}
+			temp[i] = value;
+			for (int j = i; j < size; ++j) {
+				temp[j + 1] = data[j];
+			}
+
+			data = temp;
+		} else {
+			for (int j = size - 1; j >= i; --j) {
+				data[j + 1] = data[j];
+			}
+			
+			data[i] = value;
 		}
 		
-		data = temp;
+		++size;
 	}
 	
 	public int pop() {
-		int result = data[data.length - 1];
+		int result = data[size - 1];
+		--size;
 		
-		int[] temp = new int[data.length - 1];
-		for (int i = 0; i < temp.length; ++i) {
-			temp[i] = data[i];
-		}
-		data = temp;
-		
-		return result;
+		return data[size - 1];
 	}
 	
 	public int remove(int i) {
 		int result = data[i];
-		
-		int[] temp = new int[data.length - 1];
-		for (int j = 0; j < i; ++j) {
-			temp[j] = data[j];
+
+		for (int j = i; j < size; ++j) {
+			data[j] = data[j + 1];
 		}
-		for (int j = i; j < temp.length; ++j) {
-			temp[j] = data[j + 1];
-		}
-		
-		data = temp;
-		
+
+		--size;
+
 		return result;
 	}
 	

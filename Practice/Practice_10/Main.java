@@ -7,22 +7,22 @@ public class Main {
 //		Scanner scanner = new Scanner(System.in);
 //		ArrayListInt numbers = readNumber(scanner);
 //
-//		System.out.println("До перестановки: ");
+//		System.out.println("Р”Рѕ РїРµСЂРµСЃС‚Р°РЅРѕРІРєРё: ");
 //		printNumbers(numbers);
 //
 //		reverseNumbers(numbers);
 //		
-//		System.out.println("После перестановки: ");
+//		System.out.println("РџРѕСЃР»Рµ РїРµСЂРµСЃС‚Р°РЅРѕРІРєРё: ");
 //		printNumbers(numbers);
 //		
 //		insertZeros(numbers);
 //		
-//		System.out.println("После вставки нулей: ");
+//		System.out.println("РџРѕСЃР»Рµ РІСЃС‚Р°РІРєРё РЅСѓР»РµР№: ");
 //		printNumbers(numbers);
 //		
 //		removeOdd(numbers);
 //		
-//		System.out.println("После удаления нечетных: ");
+//		System.out.println("РџРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ РЅРµС‡РµС‚РЅС‹С…: ");
 //		printNumbers(numbers);
 //		
 //		System.out.println(numbers.size());
@@ -39,7 +39,7 @@ public class Main {
 		long deltaTime = endTime - startTime;
 		long deltaTimeInMs = deltaTime / NANOSECONDS_IN_SECONDS;
 		
-		System.out.printf("Время для нашего динам. списка: %d%n", deltaTimeInMs);
+		System.out.printf("Р’СЂРµРјСЏ РґР»СЏ РЅР°С€РµРіРѕ РґРёРЅР°Рј. СЃРїРёСЃРєР°: %d%n", deltaTimeInMs);
 		
 		ArrayList<Integer> otherNumbers = new ArrayList<Integer>();
 		
@@ -51,7 +51,7 @@ public class Main {
 		deltaTime = endTime - startTime;
 		deltaTimeInMs = deltaTime / NANOSECONDS_IN_SECONDS;
 		
-		System.out.printf("Время для Java динам. списка: %d%n", deltaTimeInMs);
+		System.out.printf("Р’СЂРµРјСЏ РґР»СЏ Java РґРёРЅР°Рј. СЃРїРёСЃРєР°: %d%n", deltaTimeInMs);
 	}
 
 	private static void removeOdd(ArrayListInt numbers) {

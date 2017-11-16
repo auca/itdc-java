@@ -21,13 +21,7 @@ public class AnimationTemplate extends JFrame {
 
     }
 
-    void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        RenderingHints hints = new RenderingHints(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-        );
-        g2.setRenderingHints(hints);
+    void draw(Graphics2D g2) {
 
         // код для рисования следующего кадра
 
@@ -47,7 +41,6 @@ public class AnimationTemplate extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setVisible(true);
 
         DrawPanel panel = new DrawPanel();
         panel.addKeyListener(new KeyAdapter() {
@@ -67,6 +60,8 @@ public class AnimationTemplate extends JFrame {
             }
         });
         timer.start();
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -82,8 +77,15 @@ public class AnimationTemplate extends JFrame {
         }
 
         public void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            RenderingHints hints = new RenderingHints(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+            );
+            g2.setRenderingHints(hints);
+
             super.paintComponent(g);
-            draw(g);
+            draw(g2);
         }
     }
 

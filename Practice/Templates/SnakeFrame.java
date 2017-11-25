@@ -5,42 +5,87 @@ import java.util.*;
 
 public class MainFrame extends JFrame {
 
-    String title = "Animation Template";
+	// Field
+	
+    private static final float SCORE_MULTIPLIER = 0.2f;
+
+	static final int DEFAULT_FIELD_SIZE = 10;
+    static final Color DEFAULT_FIELD_COLOR = Color.DARK_GRAY;
+    
+    // Snake
+    
+    static final int DEFAULT_SNAKE_LENGTH = 1;
+    static final Color DEFAULT_SNAKE_COLOR = Color.WHITE;
+    
+    // Apple
+    
+    static final Color DEFAULT_APPLE_COLOR = Color.RED;
+    
+    // Windows Parameters
+    
+	String title = "Snake";
     Color background = Color.BLUE;
     int delay = 100;
     
-    int fieldCellCount = 30;
-    Color fieldColor = Color.WHITE;
-
-    int snakeLength = 10;
-    Color snakeColor = Color.GREEN;
-    int[][] snake = new int[snakeLength][2];
-    int snakeDX = 1; int snakeDY = 0;
+    // Field
     
+    int fieldCellCount;
+    Color fieldColor;
+
+    // Snake
+    
+    int snakeLength;
+    Color snakeColor;
+    int[][] snake;
+    int snakeDX, snakeDY;
+    
+    // Apple
+    int applesEaten;
+    Color appleColor;
+    int appleX, appleY;
+    
+    // Game Parameters
     boolean isPlaying = true;
+    int score = 0;
+    javax.swing.Timer timer;
 
     void start() {
-        // код для инициализации
+    	timer = new javax.swing.Timer(5000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	restart();
+            }
+        });
+    	restart();
+    }
+    
+    void restart() {
+    	timer.stop();
 
+    	createField();
+    	createSnake();
+    	createApple();
+    	
+    	isPlaying = true;
     }
 
     void update() {
-    	if (!isPlaying) return;
+    	if (!isPlaying) {
+    		// Показать сообщение 
+    		timer.start();
+
+    		return;
+    	}
     	
         moveSnake();
-        checkCollisionWithWalls();
+        checkSnakeCollisionWithWalls();
+        checkSnakeCollisionWithItself();
+        checkSnakeCollisionWithApple();
     }
 
-    void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        RenderingHints hints = new RenderingHints(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-        );
-        g2.setRenderingHints(hints);
-
+    void draw(Graphics2D g2) {
         drawField(g2);
         drawSnake(g2);
+        drawApple(g2);
     }
 
     void input(int keyCode) {
@@ -52,18 +97,32 @@ public class MainFrame extends JFrame {
         
         switch (keyCode) {
 	        case KeyEvent.VK_UP:
-	        	turnUp();
+	        	turnSnakeUp();
 	        	break;
 	        case KeyEvent.VK_DOWN:
-	        	turnDown();
+	        	turnSnakeDown();
 	        	break;
 	        case KeyEvent.VK_LEFT:
-	        	turnLeft();
+	        	turnSnakeLeft();
 	        	break;
 	        case KeyEvent.VK_RIGHT:
-	        	turnRight();
+	        	turnSnakeRight();
 	        	break;
         }
+    }
+    
+    // ---
+    
+    // Field
+    
+    void createField() {
+    	fieldCellCount = DEFAULT_FIELD_SIZE;
+    	fieldColor = DEFAULT_FIELD_COLOR;
+    }
+   
+    boolean isInsideField(int x, int y) {
+    	return (x >= 0 && x < fieldCellCount) &&
+    		   (y >= 0 && y < fieldCellCount);
     }
     
     void drawField(Graphics2D g2) {
@@ -88,30 +147,17 @@ public class MainFrame extends JFrame {
     	g2.setColor(Color.RED);
     	Font font = new Font("Arial", Font.PLAIN, 50);
     	g2.setFont(font);
-    	g2.drawString("Вы проиграли", 100, 200);
     }
+
+    // Snake
     
-    void drawSnake(Graphics2D g2) {
-    	int fieldSize = Math.min(getWidth(), getHeight());
-    	int cellSize = fieldSize / fieldCellCount;
-    	
-    	int centerShiftX = (getWidth() - fieldSize) / 2;
-    	int centerShiftY = (getHeight() - fieldSize) / 2;
-    	
-    	g2.setPaint(snakeColor);
-    	for (int i = 0; i < snakeLength; ++i) {
-    		int x = snake[i][0];
-    		int y = snake[i][1];
-    		
-        	if (isInside(x, y)) {
-		    	g2.fillRect(
-					centerShiftX + x * cellSize,
-					centerShiftY + y * cellSize,
-					cellSize - 1,
-					cellSize - 1
-				);
-        	}
-    	}
+    void createSnake() {
+        snakeLength = DEFAULT_SNAKE_LENGTH;
+        snakeColor = DEFAULT_SNAKE_COLOR;
+        snake = new int[snakeLength][2];
+
+        snakeDX = 1;
+        snakeDY = 0;
     }
     
     void moveSnake() {
@@ -124,48 +170,159 @@ public class MainFrame extends JFrame {
     	snake[head][1] += snakeDY;
     }
     
-    boolean isInside(int x, int y) {
-    	return (x >= 0 && x < fieldCellCount) &&
-    		   (y >= 0 && y < fieldCellCount);
-    }
-    
-    void checkCollisionWithWalls() {
+    void checkSnakeCollisionWithWalls() {
     	int head = snakeLength - 1;
     	int headX = snake[head][0];
     	int headY = snake[head][1];
-    			
-    	if (!isInside(headX, headY)) {
+
+    	if (!isInsideField(headX, headY)) {
     		isPlaying = false;
     	}
     }
+
+    void checkSnakeCollisionWithItself() {
+    	int head = snakeLength - 1;
+    	int headX = snake[head][0];
+    	int headY = snake[head][1];
+
+    	for (int i = 0; i < head; ++i) {
+    		int segmentX = snake[i][0];
+        	int segmentY = snake[i][1];
+        	
+	    	if (headX == segmentX && headY == segmentY) {
+	    		isPlaying = false;
+	    		break;
+	    	}
+    	}
+    }
     
-    void turnUp() {
+    void checkSnakeCollisionWithApple() {
+    	int head = snakeLength - 1;
+    	int headX = snake[head][0];
+    	int headY = snake[head][1];
+
+    	if (headX == appleX && headY == appleY) {
+    		growSnake();
+
+    		++applesEaten;
+    		score += (int) (Math.ceil(applesEaten * SCORE_MULTIPLIER));
+    		createApple();
+    	}
+    }
+    
+    void growSnake() {
+    	int[][] temp = new int[snakeLength + 1][2];
+    	int i;
+    	for (i = 0; i < snakeLength; ++i) {
+    		temp[i][0] = snake[i][0];
+    		temp[i][1] = snake[i][1];
+    	}
+    	temp[i][0] = temp[i - 1][0];
+    	temp[i][1] = temp[i - 1][1];
+    	++snakeLength;
+
+    	snake = temp;
+    }
+
+    void turnSnakeUp() {
     	if (snakeDY != 1) {
 	    	snakeDX = 0;
 	    	snakeDY = -1;
     	}
     }
 
-    void turnDown() {
+    void turnSnakeDown() {
     	if (snakeDY != -1) {
 	    	snakeDX = 0;
 	    	snakeDY = 1;
     	}
     }
     
-    void turnLeft() {
+    void turnSnakeLeft() {
     	if (snakeDX != 1) {
 	    	snakeDX = -1;
 	    	snakeDY = 0;
     	}
     }
  
- 	void turnRight() {
+ 	void turnSnakeRight() {
  		if (snakeDX != -1) {
  			snakeDX = 1;
  			snakeDY = 0;
  		}
  	}
+
+ 	void drawSnake(Graphics2D g2) {
+    	int fieldSize = Math.min(getWidth(), getHeight());
+    	int cellSize = fieldSize / fieldCellCount;
+    	
+    	int centerShiftX = (getWidth() - fieldSize) / 2;
+    	int centerShiftY = (getHeight() - fieldSize) / 2;
+    	
+    	g2.setPaint(snakeColor);
+    	for (int i = 0; i < snakeLength; ++i) {
+    		int x = snake[i][0];
+    		int y = snake[i][1];
+    		
+        	if (isInsideField(x, y)) {
+		    	g2.fillRect(
+					centerShiftX + x * cellSize,
+					centerShiftY + y * cellSize,
+					cellSize - 1,
+					cellSize - 1
+				);
+        	}
+    	}
+    }
+
+ 	// Apple
+ 
+ 	void createApple() {
+ 		boolean isFound = false;
+ 		do {
+	 		appleX = random(0, fieldCellCount);
+	 		appleY = random(0, fieldCellCount);
+	 		int i;
+	 		for (i = 0; i < snakeLength; ++i) {
+	 			int snakeSegmentX = snake[i][0];
+	 			int snakeSegmentY = snake[i][1];
+	 			
+	 			if (appleX == snakeSegmentX &&
+	 				appleY == snakeSegmentY) {
+	 				break;
+	 			}
+	 		}
+	 		if (i == snakeLength) {
+	 			isFound = true;
+	 		}
+ 		} while(!isFound);
+ 		
+ 		appleColor = DEFAULT_APPLE_COLOR;
+ 	}
+ 	
+ 	void drawApple(Graphics2D g2) {
+    	int fieldSize = Math.min(getWidth(), getHeight());
+    	int cellSize = fieldSize / fieldCellCount;
+    	
+    	int centerShiftX = (getWidth() - fieldSize) / 2;
+    	int centerShiftY = (getHeight() - fieldSize) / 2;
+		
+    	g2.setColor(appleColor);
+    	g2.fillRect(
+			centerShiftX + appleX * cellSize,
+			centerShiftY + appleY * cellSize,
+			cellSize - 1,
+			cellSize - 1
+		);
+    }
+
+ 	// Utility
+
+ 	static int random(int min, int max) {
+ 		return (int) (min + Math.random() * (max - min));
+ 	}
+ 	
+ 	// ---
  
     public MainFrame() {
         setTitle(title);
@@ -209,8 +366,15 @@ public class MainFrame extends JFrame {
         }
 
         public void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            RenderingHints hints = new RenderingHints(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+            );
+            g2.setRenderingHints(hints);
+            
             super.paintComponent(g);
-            draw(g);
+            draw(g2);
         }
     }
 

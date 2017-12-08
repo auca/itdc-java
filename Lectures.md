@@ -5,4 +5,5 @@
 * [Лекция 3, Управляющие конструкции](https://docs.google.com/presentation/d/1qaIzQ0mr2YLLrc1n48DLKw0_xQaeNf_Tpdj1bWjhrCY)
 * [Лекция 4, Циклы](https://docs.google.com/presentation/d/1pjAPM--UHZkj9293hY5d9xAXym5iOeO0FnTHF1ADSHU)
 * [Лекция 5, Методы](https://docs.google.com/presentation/d/1OxVfyytnO0Slqkvlx7ejvNY9rYvnr1AIyOKAcEAqiSk)
-* [Лекция 7, ООП](https://docs.google.com/presentation/d/1o1tBWNyDc_eI8clGhqGOcWfpHKqYFGvmABApFp6WwUE)
+* [Лекция 6, ООП](https://docs.google.com/presentation/d/1o1tBWNyDc_eI8clGhqGOcWfpHKqYFGvmABApFp6WwUE)
+* [Лекция 7, Наследование](https://docs.google.com/presentation/d/1BzIth1ptcKGtNatjZB6nSrbwqQIXPpLMKfhEU3ea30E)

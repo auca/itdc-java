@@ -7,3 +7,4 @@
 * [Лекция 5, Методы](https://docs.google.com/presentation/d/1OxVfyytnO0Slqkvlx7ejvNY9rYvnr1AIyOKAcEAqiSk)
 * [Лекция 6, ООП](https://docs.google.com/presentation/d/1o1tBWNyDc_eI8clGhqGOcWfpHKqYFGvmABApFp6WwUE)
 * [Лекция 7, Наследование](https://docs.google.com/presentation/d/1BzIth1ptcKGtNatjZB6nSrbwqQIXPpLMKfhEU3ea30E)
+* [Лекция 8, Абстрактные классы и интерфейсы](https://docs.google.com/presentation/d/1jhEKya03fXz5ataO080vzGJfQQHuY_Q5gUkG3SYdAH0)

@@ -2,7 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Rectangle extends Shape {
-    private int width, height;
+	private static final long serialVersionUID = 1L;
+
+	private int width, height;
 
     public Rectangle(int x, int y, int width, int height) {
         this(x, y, width, height, Color.WHITE);
@@ -35,6 +37,10 @@ public class Rectangle extends Shape {
         g.setColor(getColor());
         g.fillRect(getX(), getY(), width, height);
     }
+	
+	public Object clone() {
+		return new Rectangle(getX(), getY(), width, height);
+	}
 
     public String toString() {
         return "Rectangle [x=" + getX() + ", y=" + getY() + ", width=" + width + ", height=" + height + ", color=" + getColor() + "]";

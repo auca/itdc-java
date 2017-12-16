@@ -2,7 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Circle extends Shape {
-    private int radius;
+    private static final long serialVersionUID = 1L;
+
+	private int radius;
 
     public Circle(int x, int y, int radius) {
         this(x, y, radius, Color.WHITE);
@@ -36,6 +38,10 @@ public class Circle extends Shape {
         );
     }
 
+	public Object clone() {
+		return new Circle(getX(), getY(), radius);
+	}
+	
     public String toString() {
         return "Circle [x=" + getX() + ", y=" + getY() + ", radius=" + radius + ", color=" + getColor() + "]";
     }

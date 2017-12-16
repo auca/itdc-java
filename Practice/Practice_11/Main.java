@@ -1,17 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Color;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +16,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputAdapter;
@@ -81,7 +74,9 @@ public class Main {
     }
 
     class Canvas extends JPanel {
-        public Canvas() {
+		private static final long serialVersionUID = 1L;
+
+		public Canvas() {
             MouseInputAdapter adapter = new MouseInputAdapter() {
                 public void mouseDragged(MouseEvent e) {
                     addShape(e.getX(), e.getY());
@@ -114,7 +109,7 @@ public class Main {
 
         private void addShape(int x, int y) {
             if (selectedShape != null) {
-                Shape shape = selectedShape.clone();
+                Shape shape = (Shape) selectedShape.clone();
                 shape.setX(x);
                 shape.setY(y);
                 shapes.add(shape);
@@ -150,7 +145,8 @@ public class Main {
         );
     }
 
-    private ArrayList<Shape> loadShapes(String path) {
+    @SuppressWarnings("unchecked")
+	private ArrayList<Shape> loadShapes(String path) {
         ArrayList<Shape> shapes = new ArrayList<Shape>();
 
         ObjectInputStream inputStream = null;

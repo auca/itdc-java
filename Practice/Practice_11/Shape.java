@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public abstract class Shape {
-    private int x, y;
+public abstract class Shape implements Cloneable, Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private int x, y;
 
     private Color color;
 
@@ -38,5 +41,7 @@ public abstract class Shape {
     }
 
     public abstract void draw(Graphics g);
+
+    public abstract Object clone();
 
 }

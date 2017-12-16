@@ -12,6 +12,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -23,10 +28,44 @@ import javax.swing.event.MouseInputAdapter;
 public class Main {
     private static final String SAVE_STATE_PATH = "shapes.bin";
 
+	private static final String DATABASE_HOST = "localhost";
+	private static final String DATABASE_NAME = "shapes";
+	private static final String DATABASE_USER = "shapes_user";
+
     private Shape selectedShape;
     private ArrayList<Shape> shapes;
 
     private Canvas canvas;
+    
+    private static Connection dbConnection = null;
+    private static Connection getConnection() {
+    	if (dbConnection == null) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				dbConnection =
+					DriverManager.getConnection(
+						"jdbc:mysql://" + DATABASE_HOST +
+						"/"             + DATABASE_NAME +
+						"?user="        + DATABASE_USER 
+					);
+			} catch(Exception e) {
+				System.err.println("Не смогли подключиться к базе данных");
+				e.printStackTrace();
+			}
+    	}
+		
+		return dbConnection;
+    }
+    
+    private static void closeConnection() {
+    	try {
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		} catch (SQLException e) {
+			System.err.println("Не смогли закрыть подключение к базе данных");
+		}
+    }
 
     public Main() {
         JFrame frame = new JFrame();
@@ -36,7 +75,7 @@ public class Main {
         frame.setSize(400, 400);
 
         selectedShape = null;
-        shapes = loadShapes(SAVE_STATE_PATH);
+        shapes = loadShapesFromDB();
 
         canvas = new Canvas();
         canvas.setBackground(Color.BLACK);
@@ -63,7 +102,9 @@ public class Main {
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                saveShape(shapes, SAVE_STATE_PATH);
+            	saveShapesToDB(shapes);
+            	closeConnection();
+
                 System.exit(0);
             }
         });
@@ -145,8 +186,63 @@ public class Main {
         );
     }
 
-    @SuppressWarnings("unchecked")
-	private ArrayList<Shape> loadShapes(String path) {
+	private static ArrayList<Shape> loadShapesFromDB() {
+        ArrayList<Shape> shapes = new ArrayList<Shape>();
+        
+        Connection connection = null;
+		try {
+			ResultSet recordSet =
+				getConnection().createStatement().executeQuery("SELECT * FROM circles");
+
+			while (recordSet.next()) {
+				int id = recordSet.getInt("id");
+				int x = recordSet.getInt("x");
+				int y = recordSet.getInt("y");
+				int radius = recordSet.getInt("radius");
+				
+				Circle circle = new Circle(x, y, radius);
+				circle.setId(id);
+				
+				shapes.add(circle);
+			}
+			
+			recordSet =
+				getConnection().createStatement().executeQuery("SELECT * FROM rectangles");
+
+			while (recordSet.next()) {
+				int id = recordSet.getInt("id");
+				int x = recordSet.getInt("x");
+				int y = recordSet.getInt("y");
+				int width = recordSet.getInt("width");
+				int height = recordSet.getInt("height");
+				
+				Rectangle rectangle = new Rectangle(x, y, width, height);
+				rectangle.setId(id);
+				
+				shapes.add(rectangle);
+			}
+		} catch(Exception e) {
+			System.err.println("Не смогли загрузить информацию из базы данных");
+			e.printStackTrace();
+		}
+
+        return shapes;
+    }
+
+    private static void saveShapesToDB(ArrayList<Shape> shapes) {
+		try {
+			for (Shape shape : shapes) {
+				getConnection().createStatement().execute(
+					"INSERT INTO " + shape
+				);
+			}
+		} catch(Exception e) {
+			System.err.println("Не смогли сохранить информацию в базу данных");
+			e.printStackTrace();
+		}
+    }
+    
+	private static ArrayList<Shape> loadShapes(String path) {
         ArrayList<Shape> shapes = new ArrayList<Shape>();
 
         ObjectInputStream inputStream = null;
@@ -172,7 +268,7 @@ public class Main {
         return shapes;
     }
 
-    private static void saveShape(ArrayList<Shape> shapes, String path) {
+    private static void saveShapes(ArrayList<Shape> shapes, String path) {
         ObjectOutputStream outputStream = null;
         try {
             outputStream = new ObjectOutputStream(new FileOutputStream(path));

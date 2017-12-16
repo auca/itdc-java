@@ -1,8 +1,9 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,11 +28,11 @@ import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputAdapter;
 
 public class Main {
-	private static final String SAVE_STATE_PATH = "C:\\Users\\toksaitov_d\\Downloads\\shapes.bin";
-	
+    private static final String SAVE_STATE_PATH = "shapes.bin";
+
     private Shape selectedShape;
-    private ArrayList<Shape> shapes; 
-    
+    private ArrayList<Shape> shapes;
+
     private Canvas canvas;
 
     public Main() {
@@ -45,7 +47,7 @@ public class Main {
 
         canvas = new Canvas();
         canvas.setBackground(Color.BLACK);
-        
+
         JButton selectCircleButton =
             new JButton("Окружность");
         selectCircleButton.addActionListener(e -> {
@@ -64,14 +66,14 @@ public class Main {
         toolbar.setLayout(new FlowLayout());
         toolbar.add(selectCircleButton);
         toolbar.add(selectRectangleButton);
-        
+
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				saveShape(shapes, SAVE_STATE_PATH);
-				System.exit(0);
-			}
-		});
+            public void windowClosing(WindowEvent e) {
+                saveShape(shapes, SAVE_STATE_PATH);
+                System.exit(0);
+            }
+        });
 
         frame.add(canvas, BorderLayout.CENTER);
         frame.add(toolbar, BorderLayout.SOUTH);
@@ -79,46 +81,46 @@ public class Main {
     }
 
     class Canvas extends JPanel {
-    	public Canvas() {
-    		MouseInputAdapter adapter = new MouseInputAdapter() {
-    			public void mouseDragged(MouseEvent e) {
-					addShape(e.getX(), e.getY());
-				}
+        public Canvas() {
+            MouseInputAdapter adapter = new MouseInputAdapter() {
+                public void mouseDragged(MouseEvent e) {
+                    addShape(e.getX(), e.getY());
+                }
 
-				public void mousePressed(MouseEvent e) {
-					if (e.getButton() == MouseEvent.BUTTON1) {
-						addShape(e.getX(), e.getY());
-					}
-				}
-			};
-			
-			addMouseListener(adapter);
-    		addMouseMotionListener(adapter);
-    		
-    		repaint();
-    	}
-    	
+                public void mousePressed(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        addShape(e.getX(), e.getY());
+                    }
+                }
+            };
+
+            addMouseListener(adapter);
+            addMouseMotionListener(adapter);
+
+            repaint();
+        }
+
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            
+
             for (Shape shape : shapes) {
-            	shape.draw(g);
+                shape.draw(g);
             }
 
             if (selectedShape != null) {
                 selectedShape.draw(g);
             }
         }
-        
-        private void addShape(int x, int y) {
-			if (selectedShape != null) {
-				Shape shape = selectedShape.clone();
-				shape.setX(x);
-				shape.setY(y);
-				shapes.add(shape);
 
-				repaint();
-			}
+        private void addShape(int x, int y) {
+            if (selectedShape != null) {
+                Shape shape = selectedShape.clone();
+                shape.setX(x);
+                shape.setY(y);
+                shapes.add(shape);
+
+                repaint();
+            }
         }
     }
 
@@ -149,50 +151,50 @@ public class Main {
     }
 
     private ArrayList<Shape> loadShapes(String path) {
-    	ArrayList<Shape> shapes = new ArrayList<Shape>();
-    	
-    	ObjectInputStream inputStream = null;
-    	try {
-			inputStream =
-				new ObjectInputStream(new FileInputStream(path));
-			
-			shapes = (ArrayList<Shape>) inputStream.readObject();
-		} catch (IOException e) {
-			System.err.println("Не смогли загрузить файл.");
-		} catch (ClassNotFoundException e) {
-			System.err.println("Не смогли декодировать файл в объект.");
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					System.err.println("Не смогли закрыть файл.");
-				}
-			}
-		}
- 
-    	return shapes;
+        ArrayList<Shape> shapes = new ArrayList<Shape>();
+
+        ObjectInputStream inputStream = null;
+        try {
+            inputStream =
+                new ObjectInputStream(new FileInputStream(path));
+
+            shapes = (ArrayList<Shape>) inputStream.readObject();
+        } catch (IOException e) {
+            System.err.println("Не смогли загрузить файл.");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Не смогли декодировать файл в объект.");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    System.err.println("Не смогли закрыть файл.");
+                }
+            }
+        }
+
+        return shapes;
     }
-    
+
     private static void saveShape(ArrayList<Shape> shapes, String path) {
-    	ObjectOutputStream outputStream = null;
-		try {
-			outputStream = new ObjectOutputStream(new FileOutputStream(path));
-			outputStream.writeObject(shapes);
-		} catch (IOException e) {
-			System.err.println("Не смогли сохранить файл.");
-			e.printStackTrace();
-		} finally {
-			if (outputStream != null) {
-				try {
-					outputStream.close();
-				} catch (IOException e) {
-					System.err.println("Не смогли закрыть файл.");
-				}
-			}
-		}
+        ObjectOutputStream outputStream = null;
+        try {
+            outputStream = new ObjectOutputStream(new FileOutputStream(path));
+            outputStream.writeObject(shapes);
+        } catch (IOException e) {
+            System.err.println("Не смогли сохранить файл.");
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    System.err.println("Не смогли закрыть файл.");
+                }
+            }
+        }
     }
-    
+
     public static void main(String[] args) {
         new Main();
     }

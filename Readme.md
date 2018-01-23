@@ -10,7 +10,7 @@
 
 Вопросы и ответы по темам курса
 
-* <https://piazza.com/class/j7vtslkhflm251>
+* <https://piazza.com/auca.kg/spring2018/itdcjava101>
 
 ## Скринкаст
 
@@ -22,4 +22,4 @@
 
 Записи занятий
 
-* Прошлые: <https://www.youtube.com/playlist?list=PLIWindejDy9Am8eQpWOpqTD8Za9Du_jyG>
+* Прошлые: <https://www.youtube.com/playlist?list=PLIWindejDy9B1W1MLPHPbkRn_nVNfkJiy>

@@ -16,7 +16,7 @@
 
 Просмотр экрана машины преподавателя
 
-* <https://hangouts.google.com/hangouts/_/ytl/iB9_HX25S4NwIrxK2fLeZf4x0pCGFxIYXQsa4RpLU-4=?hl=en_US>
+* <https://hangouts.google.com/hangouts/_/ytl/wxj1SMpqdcY3C0AoZTvkX1_L3ZmqKciCkm_PYnydNRs=?hl=en_US>
 
 ## Записи
 

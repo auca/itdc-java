@@ -11,15 +11,3 @@
 Вопросы и ответы по темам курса
 
 * <https://piazza.com/auca.kg/spring2018/itdcjava101>
-
-## Скринкаст
-
-Просмотр экрана машины преподавателя
-
-* <https://hangouts.google.com/hangouts/_/ytl/IeBKj61m7VSxNRAaul2FJFrCF2vPKN_8ZhZe1OZMSFo=?hl=en_US>
-
-## Записи
-
-Записи занятий
-
-* Прошлые: <https://www.youtube.com/playlist?list=PLIWindejDy9B1W1MLPHPbkRn_nVNfkJiy>

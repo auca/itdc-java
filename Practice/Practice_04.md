@@ -119,6 +119,10 @@ F:\
 
 ![Gradient](https://i.imgur.com/70XUgkS.png)
 
+## Дополнительные задания
+
+* [Графика](https://drive.google.com/file/d/15zI-18JXpmchv7duUTybcWKQDZ6V7_Cq)
+
 ## Задание на дом
 
 ### Чтение

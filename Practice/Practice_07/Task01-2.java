@@ -10,7 +10,9 @@ public class Main {
 	private static final int COMMAND_TURN_LEFT        = 4;
 	private static final int COMMAND_MOVE             = 5;
 	private static final int COMMAND_PRINT_GAME_FIELD = 6;
+	private static final int COMMAND_RESET            = 7;
 	private static final int COMMAND_EXIT             = 9;
+	
 
 	/* Game Field */
 
@@ -167,14 +169,17 @@ public class Main {
 					)
 				);
 				break;
+			case COMMAND_RESET:
+				gameField = restartGame();
+				break;
 			case COMMAND_EXIT:
 				System.exit(0);
 			default:
 				throw new Exception("Неверная команда. Попробуйте еще раз.");
 		}	
 	}
-	
-	public static void main(String[] args) {
+
+	private static char[][] restartGame() {
 		char[][] gameField =
 			createGameField(
 				GAME_FIELD_WIDTH,
@@ -182,6 +187,12 @@ public class Main {
 				GAME_FIELD_EMPTY_CELL
 			);
 		initTurtle();
+		
+		return gameField;
+	}
+	
+	public static void main(String[] args) {
+		char[][] gameField = restartGame();
 
 		while (true) {
 			try {

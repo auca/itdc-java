@@ -170,7 +170,7 @@ public class Main {
 				);
 				break;
 			case COMMAND_RESET:
-				gameField = restartGame();
+				restartGame(gameField, GAME_FIELD_EMPTY_CELL);
 				break;
 			case COMMAND_EXIT:
 				System.exit(0);
@@ -179,20 +179,19 @@ public class Main {
 		}	
 	}
 
-	private static char[][] restartGame() {
-		char[][] gameField =
-			createGameField(
-				GAME_FIELD_WIDTH,
-				GAME_FIELD_HEIGHT,
-				GAME_FIELD_EMPTY_CELL
-			);
+	private static void restartGame(char[][] gameField, char emptyCellValue) {
+		initGameField(gameField, gameField.length, gameField[0].length, emptyCellValue);
 		initTurtle();
-		
-		return gameField;
 	}
 	
 	public static void main(String[] args) {
-		char[][] gameField = restartGame();
+		char[][] gameField =
+				createGameField(
+					GAME_FIELD_WIDTH,
+					GAME_FIELD_HEIGHT,
+					GAME_FIELD_EMPTY_CELL
+				);
+		initTurtle();
 
 		while (true) {
 			try {

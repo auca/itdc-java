@@ -21,7 +21,7 @@
 
 * [IntelliJ IDEA](https://www.jetbrains.com/idea)
 
-## Змейка
+## Трон
 
 ![Tron](https://i.imgur.com/qQqEYCy.png)
 

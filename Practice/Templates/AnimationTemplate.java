@@ -51,15 +51,20 @@ public class AnimationTemplate extends JFrame {
         });
         add(panel);
 
-        start();
+        addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				start();
 
-        javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                update();
-                repaint();
-            }
-        });
-        timer.start();
+				javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		                update();
+		                repaint();
+		            }
+		        });
+		        timer.start();
+			}
+		});
 
         setVisible(true);
     }

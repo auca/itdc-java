@@ -9,8 +9,8 @@ public class Rational {
         }
 
         int gcd = CustomMath.gcd(numerator, denominator);
-        numerator /= numerator;
-        denominator /= denominator;
+        numerator /= gcd;
+        denominator /= gcd;
 
         if (denominator < 0) {
             numerator = -numerator;
@@ -51,9 +51,9 @@ public class Rational {
         );
     }
 
-    public static Rational parse(String line) throws NumberFormatException, Exception {
+    public static Rational parseRational(String line) throws NumberFormatException, Exception {
         int delimeterPosition = line.indexOf('/');
-        if (delimeterPosition < -1) {
+        if (delimeterPosition <= -1) {
             return new Rational(Integer.parseInt(line), 1);
         }
 

@@ -11,3 +11,7 @@
 Вопросы и ответы по темам курса
 
 * <https://piazza.com/auca.kg/spring2018/itdcjava101>
+
+## Записи и вещание занятий
+
+* <https://www.youtube.com/playlist?list=PLIWindejDy9CcpqC69Lt19QOPsg94xvGI>

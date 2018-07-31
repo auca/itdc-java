@@ -1,7 +1,5 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class Pacman {
     final static int COIN_POINTS = 10;
@@ -10,31 +8,17 @@ public class Pacman {
     static int dx = 1, dy = 0;
     static int score = 0;
 
-    static BufferedImage upImage;
-    static BufferedImage downImage;
-    static BufferedImage leftImage;
-    static BufferedImage rightImage;
+    final static BufferedImage UP_IMAGE =
+        ImageLoader.load("pacman_up.png");
+    final static BufferedImage DOWN_IMAGE =
+        ImageLoader.load("pacman_down.png");
+    final static BufferedImage LEFT_IMAGE =
+        ImageLoader.load("pacman_left.png");
+    final static BufferedImage RIGHT_IMAGE =
+        ImageLoader.load("pacman_right.png");
 
     public static void create(int newX, int newY) {
         x = newX; y = newY;
-        try {
-            final String BASE = "pacman";
-            File upImageFile = new File(getImageFilePath(BASE, "up.png"));
-            upImage = ImageIO.read(upImageFile);
-            File downImageFile = new File(getImageFilePath(BASE, "down.png"));
-            downImage = ImageIO.read(downImageFile);
-            File leftImageFile = new File(getImageFilePath(BASE, "left.png"));
-            leftImage = ImageIO.read(leftImageFile);
-            File rightImageFile = new File(getImageFilePath(BASE, "right.png"));
-            rightImage = ImageIO.read(rightImageFile);
-        } catch (Exception e) {
-            System.err.println("Failed to load images: " + e.getMessage());
-            System.exit(-1);
-        }
-    }
-
-    public static String getImageFilePath(String base, String suffix) {
-        return base + File.separator + base + "_" + suffix;
     }
 
     public static void turnUp() {
@@ -66,9 +50,9 @@ public class Pacman {
                 break;
             }
 
-            int coinIndex;
-            if ((coinIndex = Coins.getCoinIndex(nextX, nextY)) >= 0) {
-                Coins.collect(coinIndex);
+            Coin coin;
+            if ((coin = Field.getCoin(nextX, nextY)) != null) {
+                coin.collect();
 
                 score += COIN_POINTS;
             }
@@ -84,23 +68,22 @@ public class Pacman {
 
         BufferedImage image;
         if (Pacman.dx == 0 && Pacman.dy == -1) {
-            image = upImage;
+            image = UP_IMAGE;
         } else if (Pacman.dx == 0 && Pacman.dy == 1) {
-            image = downImage;
+            image = DOWN_IMAGE;
         } else if (Pacman.dx == -1 && Pacman.dy == 0) {
-            image = leftImage;
+            image = LEFT_IMAGE;
         } else {
-            image = rightImage;
+            image = RIGHT_IMAGE;
         }
 
-        g2.setColor(Color.RED);
         g2.drawImage(
             image,
             screenX,
             screenY,
             tileSize - 1,
             tileSize - 1,
-            Color.WHITE,
+            null,
             null
         );
     }

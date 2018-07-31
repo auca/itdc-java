@@ -14,20 +14,30 @@ public class Main extends JFrame {
 
     boolean isWindowsVisible = false;
 
-    void start() {
-        int levelIndex = 3;
-        Field.load(levelIndex);
+    int levelIndex = 3;
 
+    void start() {
+        Field.load(levelIndex);
         recalculateScreenData();
     }
 
-    void update() { }
+    void update() {
+//        if (Coins.collectedCount == Coins.count) {
+//            ++levelIndex;
+//            if (levelIndex >= Levels.LEVELS.length) {
+//                // TODO: The player has won!
+//                levelIndex = 0; // temporary code
+//            }
+//
+//            Field.load(levelIndex);
+//            recalculateScreenData();
+//        }
+    }
 
     void draw(Graphics2D g2) {
         if (!isWindowsVisible) { return; };
 
         Field.draw(g2, gameAreaX, gameAreaY, tileSize);
-        Coins.draw(g2, gameAreaX, gameAreaY, tileSize);
         Pacman.draw(g2, gameAreaX, gameAreaY, tileSize);
 
         g2.setColor(Color.WHITE);

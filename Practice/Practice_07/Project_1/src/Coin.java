@@ -12,12 +12,12 @@ public class Coin {
         isCollected = false;
     }
 
-    void draw(Graphics2D g2, int gameAreaX, int gameAreaY, int tileSize) {
+    void draw(Graphics2D g2) {
         if (!isCollected) {
-            double margin = tileSize * 0.42;
-            double tileSizeWithMargin = tileSize - margin * 2;
-            double screenX = gameAreaX + margin + x * tileSize;
-            double screenY = gameAreaY + margin + y * tileSize;
+            double margin = ScreenData.tileSize * 0.42;
+            double tileSizeWithMargin = ScreenData.tileSize - margin * 2;
+            double screenX = ScreenData.gameAreaX + margin + x * ScreenData.tileSize;
+            double screenY = ScreenData.gameAreaY + margin + y * ScreenData.tileSize;
 
             g2.setColor(COIN_COLOR);
             g2.fillOval(

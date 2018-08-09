@@ -8,40 +8,26 @@ public class Main extends JFrame {
     final Color BACKGROUND = Color.BLACK;
     final int DELAY = 10;
 
-    int tileSize;
-    int gameAreaX;
-    int gameAreaY;
-
-    boolean isWindowsVisible = false;
-
-    int levelIndex = 3;
-
     void start() {
-        Field.load(levelIndex);
-        recalculateScreenData();
+        Field.loadLevel(0);
+        ScreenData.recalculateScreenData(getWidth(), getHeight());
+
+        HUD.init();
     }
 
     void update() {
-//        if (Coins.collectedCount == Coins.count) {
-//            ++levelIndex;
-//            if (levelIndex >= Levels.LEVELS.length) {
-//                // TODO: The player has won!
-//                levelIndex = 0; // temporary code
-//            }
-//
-//            Field.load(levelIndex);
-//            recalculateScreenData();
-//        }
+        if (!Field.hasCoins()) {
+            Field.loadNextLevel();
+            ScreenData.recalculateScreenData(getWidth(), getHeight());
+        }
     }
 
     void draw(Graphics2D g2) {
-        if (!isWindowsVisible) { return; };
+        if (!ScreenData.isWindowsVisible) { return; };
 
-        Field.draw(g2, gameAreaX, gameAreaY, tileSize);
-        Pacman.draw(g2, gameAreaX, gameAreaY, tileSize);
-
-        g2.setColor(Color.WHITE);
-        g2.drawString("Score: " + Pacman.score, 20, 20);
+        Field.draw(g2);
+        Pacman.draw(g2);
+        HUD.draw(g2);
     }
 
     void input(int keyCode) {
@@ -68,18 +54,6 @@ public class Main extends JFrame {
         }
     }
 
-    public void recalculateScreenData() {
-        isWindowsVisible = true;
-        int screenWidth = getWidth();
-        int screenHeight = getHeight();
-
-        tileSize = (int) (Math.min(screenWidth / Field.width, screenHeight / Field.height) * 0.9f);
-        int gameAreaWidth = Field.width * tileSize;
-        int gameAreaHeight = Field.height * tileSize;
-        gameAreaX = (screenWidth - gameAreaWidth) / 2;
-        gameAreaY = (screenHeight - gameAreaHeight) / 2;
-    }
-
     public Main() {
         setTitle(TITLE);
         setLocationRelativeTo(null);
@@ -99,15 +73,15 @@ public class Main extends JFrame {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent arg0) {
-                start();
+            start();
 
-                javax.swing.Timer timer = new javax.swing.Timer(DELAY, new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        update();
-                        repaint();
-                    }
-                });
-                timer.start();
+            javax.swing.Timer timer = new javax.swing.Timer(DELAY, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    update();
+                    repaint();
+                }
+            });
+            timer.start();
             }
         });
 
@@ -129,8 +103,8 @@ public class Main extends JFrame {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
             RenderingHints hints = new RenderingHints(
-                    RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
             );
             g2.setRenderingHints(hints);
 

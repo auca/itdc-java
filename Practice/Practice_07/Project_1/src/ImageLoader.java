@@ -6,6 +6,8 @@ import java.io.File;
 
 public class ImageLoader {
 
+    public static final String BASE_DIR = "data";
+
     public static BufferedImage load(String filename) {
         BufferedImage result = null;
         try {
@@ -20,7 +22,7 @@ public class ImageLoader {
     }
 
     public static String getImageFilePath(@NotNull String filename) {
-        return "images" + File.separator + filename;
+        return BASE_DIR + File.separator + filename;
     }
 
 }

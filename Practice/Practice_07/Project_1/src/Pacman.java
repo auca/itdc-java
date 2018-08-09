@@ -51,7 +51,7 @@ public class Pacman {
             }
 
             Coin coin;
-            if ((coin = Field.getCoin(nextX, nextY)) != null) {
+            if ((coin = Field.findCoin(nextX, nextY)) != null) {
                 coin.collect();
 
                 score += COIN_POINTS;
@@ -62,9 +62,9 @@ public class Pacman {
         }
     }
 
-    public static void draw(Graphics2D g2, int gameAreaX, int gameAreaY, int tileSize) {
-        int screenX = gameAreaX + x * tileSize;
-        int screenY = gameAreaY + y * tileSize;
+    public static void draw(Graphics2D g2) {
+        int screenX = ScreenData.gameAreaX + x * ScreenData.tileSize;
+        int screenY = ScreenData.gameAreaY + y * ScreenData.tileSize;
 
         BufferedImage image;
         if (Pacman.dx == 0 && Pacman.dy == -1) {
@@ -81,8 +81,8 @@ public class Pacman {
             image,
             screenX,
             screenY,
-            tileSize - 1,
-            tileSize - 1,
+            ScreenData.tileSize - 1,
+            ScreenData.tileSize - 1,
             null,
             null
         );

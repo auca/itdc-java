@@ -17,7 +17,19 @@ public class Field {
 
     static Coin[] coins;
 
-    public static void load(int levelIndex) {
+    static int levelIndex = 0;
+
+    public static void loadNextLevel() {
+        ++levelIndex;
+        if (levelIndex >= Levels.LEVELS.length) {
+            levelIndex = 0;
+        }
+
+        loadLevel(levelIndex);
+    }
+
+    public static void loadLevel(int newLevelIndex) {
+        levelIndex = newLevelIndex;
         char[][] level = Levels.LEVELS[levelIndex];
 
         width = level[0].length;
@@ -57,23 +69,23 @@ public class Field {
         }
     }
 
-    public static void draw(Graphics2D g2, int gameAreaX, int gameAreaY, int tileSize) {
+    public static void draw(Graphics2D g2) {
         for (int y = 0; y < Field.height; ++y) {
             for (int x = 0; x < Field.width; ++x) {
-                int screenX = gameAreaX + x * tileSize;
-                int screenY = gameAreaY + y * tileSize;
+                int screenX = ScreenData.gameAreaX + x * ScreenData.tileSize;
+                int screenY = ScreenData.gameAreaY + y * ScreenData.tileSize;
                 switch (Field.field[y][x]) {
                     case Field.EMPTY_CELL:
                         g2.setColor(EMPTY_CELL_COLOR);
-                        g2.fillRect(screenX, screenY, tileSize - 1, tileSize - 1);
+                        g2.fillRect(screenX, screenY, ScreenData.tileSize - 1, ScreenData.tileSize - 1);
                         break;
                     case Field.WALL_CELL:
                         g2.drawImage(
                             WALL_CELL_IMAGE,
                             screenX,
                             screenY,
-                            tileSize - 1,
-                            tileSize - 1,
+                            ScreenData.tileSize - 1,
+                            ScreenData.tileSize - 1,
                             null,
                             null
                         );
@@ -83,11 +95,11 @@ public class Field {
         }
 
         for (int i = 0; i < coins.length; ++i) {
-            coins[i].draw(g2, gameAreaX, gameAreaY, tileSize);
+            coins[i].draw(g2);
         }
     }
 
-    public static Coin getCoin(int coinX, int coinY) {
+    public static Coin findCoin(int coinX, int coinY) {
         for (int i = 0; i < coins.length; ++i) {
             Coin coin = coins[i];
             if (coin.x == coinX && coin.y == coinY && !coin.isCollected) {
@@ -96,6 +108,17 @@ public class Field {
         }
 
         return null;
+    }
+
+    public static boolean hasCoins() {
+        for (int i = 0; i < coins.length; ++i) {
+            Coin coin = coins[i];
+            if (!coin.isCollected) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean canMove(int x, int y) {

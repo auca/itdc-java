@@ -1,0 +1,108 @@
+C#
+HTML, CSS, JavaScript (Node.js, Electron)
+python
+---
+C/C++
+
+===
+
+Processing
+Unity
+
+===
+
+Amazon Web Services
+Google Cloud Platform‎ (+ Firebase)
+Microsoft Azure Cloud
+
+===
+
+techmeme.com
+news.ycombinator.com
+slashdot.org
+techcrunch.com
+crunchbase.com
+habrahabr.ru
+upwork.com (oDesk)
+github.com
+gitlab.com
+bitbucket.org
+travis-ci.org
+circleci.com
+jenkins.io
+distrowatch.com
+db-engines.com
+atlassian.com/software/jira
+visualstudio.microsoft.com/team-services
+asana.com
+slack.com
+udacity.com
+coursera.org
+edx.org
+iTunes U
+lynda.com
+channel9.msdn.com
+hyperpolyglot.org
+learnxinyminutes.com
+rosettacode.org
+stackoverflow.com
+thedailywtf.com
+
+===
+
+The Coding Train
+Computerphile
+
+===
+
+Code: The Hidden Language of Computer Hardware and Software
+Book by Charles Petzold
+
+Refactoring
+Book by Kent Beck and Martin Fowler
+
+Design Patterns: Elements of Reusable Object-Oriented Software
+Book by Erich Gamma, John Vlissides, Ralph Johnson, and Richard Helm
+
+Algorithms
+by Robert Sedgewick
+
+Code Complete
+Book by Steve McConnell
+
+Clean Code
+Book by Robert Cecil Martin
+
+The Pragmatic Programmer
+Book by Andy Hunt and Dave Thomas
+
+Extreme Programming Explained
+Book by Kent Beck
+Test-Driven Development by Example
+Book by Kent Beck
+
+The Mythical Man-Month
+Book by Fred Brooks
+
+Cracking the Coding Interview: 150 Programming Questions and Solutions 5th Revised & enlarged Edition
+by Gayle Laakmann McDowell
+
+---
+
+The C Programming Language
+Book by Brian Kernighan and Dennis Ritchie
+The Unix Programming Environment
+Book by Brian Kernighan and Rob Pike
+UNIX in a nutshell
+Book by Arnold Robbins
+The C++ Programming Language
+Book by Bjarne Stroustrup
+
+---
+
+Introduction to Algorithms
+Book by Charles E. Leiserson, Clifford Stein, Ronald Rivest, and Thomas H. Cormen
+Structure and Interpretation of Computer Programs
+Textbook by Gerald Jay Sussman and Hal Abelson
+The Art of Computer Programming
+Book by Donald Knuth
